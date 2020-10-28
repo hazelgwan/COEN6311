@@ -1,7 +1,7 @@
 <div>
     <ul class = "fleet">
         <li *ngFor = 'let car of cars'> 
-            <span class ="badge" (click)="onSelect(car)">{{car.make}}  {{car.name}} {{car.year.getFullYear()}}</span>
+            <span class ="badge" (click)="onSelect(car)">{{car.condition}}  {{car.releaseyear}} {{car.kmdriven}}</span>
         </li>
     </ul>
 </div>

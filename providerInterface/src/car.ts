@@ -1,9 +1,8 @@
 export interface car {
-    carID: number,
-    entryDate: Date,
-    make: string,
-    name: string,
-    year: Date,
+    id: number,
+    entrydate: string,
     kmDriven: number,
-    condition: string
+    releaseyear: number,
+    condition: string,
+    pricekm: number
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { car } from '../../car';
-import { CARS } from '../../mockData';
+import { CarService } from '../car.service';
+
 
 @Component({
   selector: 'app-fleet',
@@ -9,21 +10,21 @@ import { CARS } from '../../mockData';
 })
 export class FleetComponent implements OnInit {
   
-  cars = CARS;
+  cars: car[];
   selectedcar: car;
-  removedcar: car;
-  removeCar(car: car): void{
-    //there should be a better way to do this
-    this.removedcar = car;
-    delete this.cars[this.removedcar.carID];
-  }
-
+  
   onSelect(car: car): void{
     this.selectedcar = car;
   }
-  constructor() { }
+
+  getCars(): void {
+    this.carService.getCars().subscribe(cars => this.cars=cars)
+  }
+
+  constructor( private carService: CarService) { }
 
   ngOnInit(): void {
+    this.getCars();
   }
 
   

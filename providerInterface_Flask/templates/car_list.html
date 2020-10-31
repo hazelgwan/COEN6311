@@ -16,7 +16,7 @@
             {{response["releaseyear"]}} - 
             {{response["condition"]}} - 
             {{response["pricekm"]}}
-            <form action="{{ url_for('car_list') }}" method="delete">
+            <form action="{{ url_for('delete') }}" method="post">
                 <input type="hidden" name="DeleteID" value={{carID}}>
                 <input type="submit" value="Remove car">
             </form>

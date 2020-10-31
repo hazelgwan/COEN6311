@@ -17,7 +17,7 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
-@app.route("/car_list", methods=["GET","POST","DELETE"])
+@app.route("/car_list", methods=["GET","POST"])
 def car_list():
     if request.method == "POST":
         url = "http://localhost:3001/cars"
@@ -30,11 +30,7 @@ def car_list():
             }
         headers = {'content-type': 'application/json'}
         r = requests.request('POST',url, data = json.dumps(params), headers=headers)
-
-    if request.method == 'DELETE':
-        url = 'http://localhost:3001/cars/' + str(request.form.get("DeleteID"))
-        delete_r = requests.request('DELETE',url)
-        return redirect(url_for('car_list'))
+        
     
     url = "http://localhost:3001/cars"
     r = requests.request("GET",url).json()
@@ -45,3 +41,10 @@ def car_list():
 def add_car_form():
 
     return render_template("add_car_form.html")
+
+@app.route("/delete", methods=["POST"])
+def delete():
+    url = 'http://localhost:3001/cars/' + str(request.form.get("DeleteID"))
+    delete_r = requests.request('DELETE',url)
+    return redirect(url_for("car_list"))
+

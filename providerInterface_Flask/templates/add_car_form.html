@@ -8,6 +8,8 @@
 <body>
     <div>
         <form action="{{ url_for('car_list')}}" method="post">
+            <!-- Input for car ID -->
+            <input type="hidden" name="CarID" min="0" value = "0">
             <!-- Input for car entry date -->
             <label for="EntryDate">Entry date:</label> <br>
             <input type="date" name="EntryDate"> <br><br>

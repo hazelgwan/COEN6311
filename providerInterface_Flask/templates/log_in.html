@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+</head>
+<body>
+    {% if response_status == 200%}
+    <h2>You have registered successfully. Please log in to continue!</h2>
+    {% endif %}
+    <form action="{{url_for('login')}}" method="post">
+        <label for="username">Name: </label>
+        <input type="text" name="username">
+        <label for="password">Password:</label>
+        <input type="text" name="password">
+        <input type="submit" value="Log in">
+    </form>
+    <div>
+        <i>New employee?</i>
+        <a href="{{url_for('register_form')}}"> <button>Register here!</button></a>
+    </div>
+</body>
+</html>

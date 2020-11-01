@@ -17,7 +17,41 @@ app = Flask(__name__)
 	# Integer pricekm;
 @app.route("/")
 def index():
-    return render_template("index.html")
+    # This should return the login page if login successfully, return the index.html page
+    return render_template("log_in.html")
+
+@app.route("/login", methods =["POST"])
+def login():
+    url = "http://localhost:3001/employees"
+    r = requests.request("GET",url).json()
+    username = str(request.form.get("username"))
+    password = str(request.form.get("password"))
+    login_token = False
+    for response in r:
+        if response["name"] == username and response["password"]==password:
+            login_token = True
+    if login_token:
+        return render_template("index.html")
+    else:
+        return render_template("bad_log_in.html")
+
+@app.route("/register_form")
+def register_form():
+    return render_template("register.html")
+
+@app.route("/register", methods = ["POST"])
+def register():
+    url = 'http://localhost:3001/employees'
+    params = {'id': str(request.form.get("id")),
+        'name' : str(request.form.get("fullname")),
+        'password' : str(request.form.get("password")),
+        'position' : str(request.form.get("position")),
+        'email' : str(request.form.get("email"))
+        }
+
+    headers = {'content-type': 'application/json'}
+    r = requests.request("POST", url, data = json.dumps(params),headers = headers)
+    return render_template("log_in.html", response_status = r.status_code)
 
 @app.route("/car_list", methods=["GET","POST"])
 def car_list():

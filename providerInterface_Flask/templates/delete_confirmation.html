@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Are you sure you want to delete the following car:</h3>
+    <form id="delete_form" action="{{ url_for('delete') }}" method="post">
+        <label>CarID: {{deleteID}}</label>
+        <input type="hidden" name="DeleteID" value={{deleteID}}>
+        <label>Entry date: {{entryDate}}</label> <br>
+        <label>Km driven: {{kmDriven}}</label> <br>
+        <label>Release year: {{releaseYear}}</label> <br>
+        <label>Condition: {{condition}}</label> <br>
+        <label>Price per Km: {{priceKm}}</label> <br>
+        <input type="submit" value="Confirm">
+    </form>
+    <a href="{{url_for('car_list')}}"><button>Cancel</button></a>
+</body>
+</html>

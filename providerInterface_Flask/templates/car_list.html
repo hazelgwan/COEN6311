@@ -2,27 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/car_list.js')}}"></script>
+    <title>Document</title>   
 </head>
 <body>
     {% for response in responses %}
     {% set carID = response["id"] %}
+    {% set entryDate = response["entrydate"] %}
+    {% set kmDriven = response["kmdriven"] %}
+    {% set releaseYear = response["releaseyear"] %}
+    {% set condition = response["condition"] %}
+    {% set priceKm = response["pricekm"] %}
     <ul>
         <li>
             {{carID}} - 
-            {{response["entrydate"]}} - 
-            {{response["kmdriven"]}} - 
-            {{response["releaseyear"]}} - 
-            {{response["condition"]}} - 
-            {{response["pricekm"]}}
-            <form action="{{ url_for('delete') }}" method="post">
+            {{entryDate}} - 
+            {{kmDriven}} - 
+            {{releaseYear}} - 
+            {{condition}} - 
+            {{priceKm}}
+            <form id="delete_form" action="{{ url_for('delete_confirmation') }}" method="post">
                 <input type="hidden" name="DeleteID" value={{carID}}>
-                <input type="submit" value="Remove car">
+                <input type="hidden" name="DeleteEntrydate" value={{entryDate}}>
+                <input type="hidden" name="DeleteKmdriven" value={{kmDriven}}>
+                <input type="hidden" name="DeleteReleaseyear" value={{releaseYear}}>
+                <input type="hidden" name="DeleteCondition" value={{condition}}>
+                <input type="hidden" name="DeletePricekm" value={{priceKm}}>
+                <input type="submit" value="Remove Car">
             </form>
         </li>
     </ul>
     {% endfor %}
-    <a href="{{ url_for('add_car_form') }}" >Add car...</a>
+    <a href="{{ url_for('add_car_form') }}" > <button>Add car...</button> </a>
 </body>
 </html>

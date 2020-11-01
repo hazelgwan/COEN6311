@@ -2,6 +2,8 @@ from flask import Flask, redirect, url_for, render_template, request
 # To start server : 
 # First: C:\Users\OS\COEN6311\car-rental-all-class
 # Then: ./mvnw spring-boot:run
+from datetime import date
+
 import requests, uuid, json
 
 app = Flask(__name__)
@@ -39,8 +41,21 @@ def car_list():
 
 @app.route("/add_car_form")
 def add_car_form():
+    
+    today = date.today()
+    d1 = today.strftime("%Y-%m-%d")
 
-    return render_template("add_car_form.html")
+    return render_template("add_car_form.html",today = d1)
+
+@app.route("/delete_confirmation", methods=["POST"])
+def delete_confirmation():
+    deleteID = str(request.form.get("DeleteID"))
+    entryDate = str(request.form.get("DeleteEntrydate"))
+    kmDriven = str(request.form.get("DeleteKmdriven"))
+    releaseYear = str(request.form.get("DeleteReleaseyear")) 
+    condition = str(request.form.get("DeleteCondition"))
+    priceKm = str(request.form.get("DeletePricekm"))
+    return render_template("delete_confirmation.html", deleteID = deleteID, entryDate = entryDate, kmDriven = kmDriven, releaseYear = releaseYear, condition = condition, priceKm = priceKm)
 
 @app.route("/delete", methods=["POST"])
 def delete():
